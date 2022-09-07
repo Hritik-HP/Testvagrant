@@ -1,3 +1,4 @@
+# Main.java
 #This is main file 
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Main {
 		System.out.println("Maximum gst product is : " + maxGSTProduct);
 	}
 }
-
+# Product.java
 #Than Run this code
 
 public class Product {
