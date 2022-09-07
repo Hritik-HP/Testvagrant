@@ -1,23 +1,101 @@
-# Compiled class file
-*.class
+#This is main file 
 
-# Log file
-*.log
+import java.util.ArrayList;
 
-# BlueJ files
-*.ctxt
+public class Main {
+	public static void main(String[] args) {
+		ArrayList<Product> baskets = new ArrayList<>();
+		baskets.add(new Product("Leather wallet", 1100, 18, 1));
+		baskets.add(new Product("Umbrella", 900, 12, 2));
+		baskets.add(new Product("Cigarette", 200, 28, 3));
+		baskets.add(new Product("Honey", 100, 0, 4));
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+		Product maxGSTProduct = baskets.get(0);
+		double totalPrice = 0.0;
+		for (Product product : baskets) {
+			totalPrice += product.getPrice();
+			if (maxGSTProduct.getGstAmount() < product.getGstAmount()) {
+				maxGSTProduct = product;
+			}
+		}
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+		System.out.println("Total Price : " + totalPrice);
+		System.out.println("Maximum gst product is : " + maxGSTProduct);
+	}
+}
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+#Than Run this code
+
+public class Product {
+	private String product;
+	private int unitPrice;
+	private int gst;
+	private int quantity;
+	private double price;
+	private double gstAmount;
+
+	public Product(String product, int unitPrice, int gst, int quantity) {
+		this.product = product;
+		this.unitPrice = unitPrice;
+		this.gst = gst;
+		this.quantity = quantity;
+		applyGST();
+	}
+
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
+	}
+
+	public int getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(int unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public int getGst() {
+		return gst;
+	}
+
+	public void setGst(int gst) {
+		this.gst = gst;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public double getGstAmount() {
+		return gstAmount;
+	}
+
+	public void applyGST() {
+		price = unitPrice * quantity;
+		gstAmount = price * gst / 100;
+		price += gstAmount;
+		if (price >= 500) {
+			price = price + (price * 0.05);
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Product [product=" + product + ", unitPrice=" + unitPrice + ", gst=" + gst + ", quantity=" + quantity
+				+ ", price=" + price + "]";
+	}
+
+}
+
